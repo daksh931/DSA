@@ -1,42 +1,53 @@
 #include <iostream>
-#include <stdlib.h>
+
 using namespace std;
+
+
+void printarr(int arr[] , int len)
+{   
+    cout<<"Array is -> ";
+    for (int i=0; i<len; i++)
+    {
+        cout << arr[i] <<" ";
+    }
+}
+
 
 void merge(int arr[] , int l , int mid, int r)
 {
-    int n1=mid-l+1;
-    int n2=r-mid;
+    int arr1len1=mid-l+1;
+    int arr2len2=r-mid;
 
     //making two temporary arrays for storing sorted values in array
-    int a[n1];
-    int b[n2];
+    int arr1[arr1len1];
+    int arr2[arr2len2];
+    
 
-
-    for( int i=0; i<n1; i++)
+    for( int i=0; i<arr1len1; i++)
     {
-        a[i] = arr[l+i];
+        arr1[i] = arr[l+i];
     }
 
-    for (int i=0; i<n2;i++)
+    for (int i=0; i<arr2len2;i++)
     {
-        b[i] = arr[mid+1+i];
+        arr2[i] = arr[mid+1+i];
     }
 
     int i =0;
     int j=0;
     int k=l;
 
-    while(i<n1 && j<n2)
+    while(i<arr1len1 && j<arr2len2)
     {
-        if(a[i]<b[j])
+        if(arr1[i]<arr2[j])
         {
-            arr[k] = a[i];
+            arr[k] = arr1[i];
             k++; 
             i++;
         }
 
         else{
-            arr[k] = b[j];
+            arr[k] = arr2[j];
             k++;
             j++;
         }
@@ -48,18 +59,19 @@ void merge(int arr[] , int l , int mid, int r)
     // so we will use while loop to do so
     // as we can't predict initially so we have to handle both cases of arr-1 and arr-2
     // that's why we are using here two while loops for adding remaning elems into final array
-    while(i<n1){
-        arr[k] = a[i];
+    while(i<arr1len1){
+        arr[k] = arr1[i];
         k++;
         i++;
     }
 
-    while(j<n2){
-        arr[k] = a[j];
+    while(j<arr2len2){
+        arr[k] = arr2[j];
         k++;
         j++;
     }
-
+// printarr(a,n1);
+// printarr(b,n2);
 
 }
 
@@ -78,11 +90,9 @@ void mergesort(int arr[] , int l ,int r)
 
 int main()
 {
-    int arr[] = {5,4,3,2,1};
-    mergesort(arr,0,4);
-    for(int i=0; i<5;i++)
-    {
-        cout<<arr[i]<<" ";
-    }
+    int arr[] = {7,19,77,-5,1};
+    int len = sizeof(arr)/sizeof(arr[0]);
+    mergesort(arr,0,len-1);
+    printarr(arr,len);
     return 0;
 }
